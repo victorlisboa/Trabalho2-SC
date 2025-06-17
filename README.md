@@ -80,7 +80,4 @@ It also demonstrates the weakness of ECB mode:
 - **Security Note**: ECB mode is insecure for most applications due to its deterministic nature; use CBC, CFB, OFB, or CTR for better security.
 
 ### Authors
-- Victor (and contributors)
-
----
-For any questions or further analysis, feel free to reach out!
+- Victor Hugo França Lisboa
