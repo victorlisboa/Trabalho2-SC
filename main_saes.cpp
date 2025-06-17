@@ -18,7 +18,7 @@ void printBlockAnalysis(const string& text, const string& ciphertext, size_t blo
     }
     cout << dec << '\n';
 
-    cout << "cipher blocks (hex): ";
+    cout << "blocos cifrados (hex): ";
     for (size_t i = 0; i < ciphertext.length(); i += blockSize) {
         string block = ciphertext.substr(i, blockSize);
         cout << hex << setfill('0');
@@ -49,7 +49,7 @@ int main() {
     
     // teste 2: demonstra fraqueza do ECB com blocos iguais
     cout << "\nteste 2: demonstra fraqueza do ECB com blocos iguais\n";
-    string plaintext2 = "AAAA";  // Two identical blocks
+    string plaintext2 = "AAAA";  // 2 blocos iguais
     string ciphertext2 = saes.encryptECB(plaintext2);
     string decrypted2 = saes.decryptECB(ciphertext2);
     
@@ -60,18 +60,18 @@ int main() {
     // mostra analise do bloco do teste 2
     printBlockAnalysis(plaintext2, ciphertext2);
     
-    // Test 3: Another example with repeating pattern
-    cout << "\nTest 3: Repeating pattern" << '\n';
-    string plaintext3 = "ABABABAB";  // Four identical blocks
+    // teste 3: repetindo padrao
+    cout << "\nteste 3: repetindo padrao" << '\n';
+    string plaintext3 = "ABABABAB";  // 4 blocos iguais
     string ciphertext3 = saes.encryptECB(plaintext3);
     string decrypted3 = saes.decryptECB(ciphertext3);
     
-    cout << "Original text: " << plaintext3 << '\n';
-    cout << "Ciphertext (base64): " << saes.toBase64(ciphertext3) << '\n';
-    cout << "Decrypted text: " << decrypted3 << '\n';
+    cout << "plaintext: " << plaintext3 << '\n';
+    cout << "ciphertext (base64): " << saes.toBase64(ciphertext3) << '\n';
+    cout << "decrypted text: " << decrypted3 << '\n';
     
-    // Show block analysis for Test 3
+    // mostra analise do bloco do teste 3
     printBlockAnalysis(plaintext3, ciphertext3);
     
     return 0;
-} 
+}

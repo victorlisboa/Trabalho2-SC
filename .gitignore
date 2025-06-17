@@ -2,3 +2,4 @@
 *.png
 *.exe
 .vscode
+*.o

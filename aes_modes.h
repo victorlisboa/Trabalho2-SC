@@ -10,16 +10,16 @@
 
 class AESModes {
 private:
-    // Key and IV sizes
+    // key and IV sizes
     static const int KEY_SIZE = 32;  // 256 bits
     static const int IV_SIZE = 16;   // 128 bits
     static const int BLOCK_SIZE = 16; // 128 bits
 
-    // Key and IV
+    // key and IV
     unsigned char key[KEY_SIZE];
     unsigned char iv[IV_SIZE];
 
-    // Helper functions
+    // funcoes helpers
     std::string base64_encode(const unsigned char* input, int length);
     std::string base64_decode(const std::string& input);
     void generate_random_bytes(unsigned char* buffer, int size);
@@ -31,21 +31,21 @@ public:
     AESModes();
     ~AESModes();
 
-    // Encryption modes
+    // modos de criptografia
     std::string encrypt_ecb(const std::string& plaintext);
     std::string encrypt_cbc(const std::string& plaintext);
     std::string encrypt_cfb(const std::string& plaintext);
     std::string encrypt_ofb(const std::string& plaintext);
     std::string encrypt_ctr(const std::string& plaintext);
 
-    // Decryption modes
+    // modos de descriptografia
     std::string decrypt_ecb(const std::string& ciphertext);
     std::string decrypt_cbc(const std::string& ciphertext);
     std::string decrypt_cfb(const std::string& ciphertext);
     std::string decrypt_ofb(const std::string& ciphertext);
     std::string decrypt_ctr(const std::string& ciphertext);
 
-    // Analysis functions
+    // funcoes de analise
     double measure_entropy(const std::string& data);
     void print_analysis(const std::string& mode, const std::string& plaintext, 
                        const std::string& ciphertext, double time_ms);

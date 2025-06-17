@@ -9,50 +9,50 @@ void test_mode(AESModes& aes, const string& mode_name,
                string (AESModes::*encrypt_func)(const string&),
                string (AESModes::*decrypt_func)(const string&),
                const string& plaintext) {
-    cout << "\n=== Testing " << mode_name << " Mode ===" << endl;
+    cout << "\n=== Testando modo " << mode_name << " ===\n";
     
-    // Measure encryption time
+    // mede tempo de criptografia
     auto start = chrono::high_resolution_clock::now();
     string ciphertext = (aes.*encrypt_func)(plaintext);
     auto end = chrono::high_resolution_clock::now();
     double time_ms = chrono::duration<double, milli>(end - start).count();
     
-    // Print analysis
+    // printa analise
     aes.print_analysis(mode_name, plaintext, ciphertext, time_ms);
     
-    // Decrypt and verify
+    // descriptografa e verifica
     string decrypted = (aes.*decrypt_func)(ciphertext);
-    cout << "Decrypted text: " << decrypted << endl;
-    cout << "Decryption successful: " << (decrypted == plaintext ? "Yes" : "No") << endl;
+    cout << "texto descriptografado: " << decrypted << '\n';
+    cout << "descriptografia concluida com sucesso: " << (decrypted == plaintext ? "sim" : "nao") << '\n';
 }
 
 int main() {
     try {
         AESModes aes;
         
-        // Test message
-        string plaintext = "This is a test message for AES encryption. "
-                               "It contains multiple blocks to demonstrate "
-                               "different modes of operation.";
+        // mensagem de teste
+        string plaintext = "Essa eh uma mensagem de teste para a criptografia AES. "
+                               "Ela contem multiplos blocos para representar"
+                               " modos de operacao diferentes.";
         
-        // Test all modes
+        // testa todos os modos
         test_mode(aes, "ECB", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, plaintext);
         test_mode(aes, "CBC", &AESModes::encrypt_cbc, &AESModes::decrypt_cbc, plaintext);
         test_mode(aes, "CFB", &AESModes::encrypt_cfb, &AESModes::decrypt_cfb, plaintext);
         test_mode(aes, "OFB", &AESModes::encrypt_ofb, &AESModes::decrypt_ofb, plaintext);
         test_mode(aes, "CTR", &AESModes::encrypt_ctr, &AESModes::decrypt_ctr, plaintext);
         
-        // Demonstrate ECB weakness with identical blocks
-        cout << "\n=== Demonstrating ECB Weakness ===" << endl;
-        string repeated = "AAAA";  // Two identical blocks
-        test_mode(aes, "ECB (Repeated Blocks)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, repeated);
+        // demonstra fraqueza do ECB com blocos iguais
+        cout << "\n=== Demonstrando Fraqueza do ECB ===" << '\n';
+        string repeated = "AAAA";  // 2 blocos iguais
+        test_mode(aes, "ECB (Blocos Repetidos)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, repeated);
         
-        // Test with a different message to show pattern differences
-        string pattern = "ABABABAB";  // Alternating pattern
-        test_mode(aes, "ECB (Pattern)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, pattern);
+        // teste com uma mensagem diferente pra mostrar padroes diferentes
+        string pattern = "ABABABAB";  // alternando padrao
+        test_mode(aes, "ECB (Padrao)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, pattern);
         
     } catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cerr << "Error: " << e.what() << '\n';
         return 1;
     }
     
