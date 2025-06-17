@@ -46,6 +46,9 @@ int main() {
     cout << "plaintext: " << plaintext1 << '\n';
     cout << "ciphertext (base64): " << saes.toBase64(ciphertext1) << '\n';
     cout << "decrypted text: " << decrypted1 << '\n';
+
+    // mostra analise do bloco do teste 1
+    printBlockAnalysis(plaintext1, ciphertext1);
     
     // teste 2: demonstra fraqueza do ECB com blocos iguais
     cout << "\nteste 2: demonstra fraqueza do ECB com blocos iguais\n";

@@ -14,7 +14,7 @@ public:
     static const array<uint8_t, 16> INVERSE_SBOX;
 
 private:
-    // expansao Key
+    // chave de expansao
     vector<array<array<uint8_t, 2>, 2>> roundKeys;
     
     // helpers
@@ -29,7 +29,7 @@ private:
     uint8_t multiplyGF24(uint8_t a, uint8_t b);
     void keyExpansion(const array<array<uint8_t, 2>, 2>& key);
 
-    // helper pra ECB mode
+    // helper pra modo ECB
     vector<string> splitIntoBlocks(const string& input);
     string padBlock(const string& block);
 
@@ -43,6 +43,9 @@ public:
     // funcoes do modo ECB
     string encryptECB(const string& plaintext);
     string decryptECB(const string& ciphertext);
+
+    // helper para imprimir estado
+    void printState(const array<array<uint8_t, 2>, 2>& state, const string& label);
 };
 
 #endif // SAES_H

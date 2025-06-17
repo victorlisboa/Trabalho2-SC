@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -167,22 +168,45 @@ void SAES::keyExpansion(const array<array<uint8_t, 2>, 2>& key) {
     roundKeys.push_back(toBlock(w4, w5));
 }
 
+void SAES::printState(const array<array<uint8_t, 2>, 2>& state, const string& label) {
+    cout << "\n" << label << ":" << endl;
+    cout << hex << setfill('0');
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 2; ++j) {
+            cout << setw(2) << static_cast<int>(state[i][j]) << " ";
+        }
+        cout << endl;
+    }
+    cout << dec;
+}
+
 string SAES::encrypt(const string& plaintext) {
     array<array<uint8_t, 2>, 2> state = stringToBlock(plaintext);
     
+    cout << "\nEstado inicial:" << endl;
+    printState(state, "Estado inicial");
+    
     // round 0
     state = addRoundKey(state, roundKeys[0]);
+    printState(state, "Após AddRoundKey (Round 0)");
     
     // round 1
     state = subNibbles(state);
+    printState(state, "Após SubNibbles (Round 1)");
     state = shiftRows(state);
+    printState(state, "Após ShiftRows (Round 1)");
     state = mixColumns(state);
+    printState(state, "Após MixColumns (Round 1)");
     state = addRoundKey(state, roundKeys[1]);
+    printState(state, "Após AddRoundKey (Round 1)");
     
     // round 2
     state = subNibbles(state);
+    printState(state, "Após SubNibbles (Round 2)");
     state = shiftRows(state);
+    printState(state, "Após ShiftRows (Round 2)");
     state = addRoundKey(state, roundKeys[2]);
+    printState(state, "Após AddRoundKey (Round 2)");
     
     return blockToString(state);
 }
