@@ -42,15 +42,6 @@ int main() {
         test_mode(aes, "OFB", &AESModes::encrypt_ofb, &AESModes::decrypt_ofb, plaintext);
         test_mode(aes, "CTR", &AESModes::encrypt_ctr, &AESModes::decrypt_ctr, plaintext);
         
-        // demonstra fraqueza do ECB com blocos iguais
-        cout << "\n=== Demonstrando Fraqueza do ECB ===" << '\n';
-        string repeated = "AAAA";  // 2 blocos iguais
-        test_mode(aes, "ECB (Blocos Repetidos)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, repeated);
-        
-        // teste com uma mensagem diferente pra mostrar padroes diferentes
-        string pattern = "ABABABAB";  // alternando padrao
-        test_mode(aes, "ECB (Padrao)", &AESModes::encrypt_ecb, &AESModes::decrypt_ecb, pattern);
-        
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << '\n';
         return 1;

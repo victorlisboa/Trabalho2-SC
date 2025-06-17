@@ -38,7 +38,7 @@ int main() {
     SAES saes(key);
     
     // teste 1: mensangem simples
-    cout << "\nteste 1: mensangem simples" << '\n';
+    cout << "\nteste 1: mensagem simples" << '\n';
     string plaintext1 = "Hello World!";
     string ciphertext1 = saes.encryptECB(plaintext1);
     string decrypted1 = saes.decryptECB(ciphertext1);
